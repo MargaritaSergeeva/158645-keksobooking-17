@@ -28,6 +28,10 @@
       return 0;
     },
 
+    getBlockTopPosition: function (element) {
+      return element ? element.getBoundingClientRect().top : '';
+    },
+
     getBlockLeftPosition: function (element) {
       return element ? element.getBoundingClientRect().left : '';
     },
