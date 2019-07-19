@@ -75,6 +75,26 @@
       if (element) {
         element.className = elementClass;
       }
+    },
+
+    setAttributeToElement: function (element, attrName, attrValue) {
+      element.setAttribute(attrName, attrValue);
+    },
+
+    setAttributeToElementsInCollection: function (element, attrName, attrValue) {
+      element.forEach(function (it) {
+        window.utils.setAttributeToElement(it, attrName, attrValue);
+      });
+    },
+
+    removeAttributeToElement: function (element, attrName) {
+      element.removeAttribute(attrName);
+    },
+
+    removeAttributeToElementsInCollection: function (element, attrName) {
+      element.forEach(function (it) {
+        window.utils.removeAttributeToElement(it, attrName);
+      });
     }
   };
 })();

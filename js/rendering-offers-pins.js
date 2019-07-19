@@ -14,6 +14,7 @@
       offersPinElement.style.left = (ad.location.x - window.constants.Pin.WIDTH / 2) + 'px';
       offersPinElement.style.top = (ad.location.y - window.constants.Pin.HEIGHT) + 'px';
       offersPinElement.alt = ad.offer.title;
+      offersPinElement.index = window.variables.usersAds.indexOf(ad);
 
       return offersPinElement;
     }

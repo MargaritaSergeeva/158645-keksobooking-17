@@ -1,17 +1,16 @@
 'use strict';
 
 (function () {
+  var mapElement = document.querySelector('.map');
+  var mapFiltersElement = mapElement.querySelector('.map__filters');
+
   window.variables = {
     mainElement: document.querySelector('main'),
-    mapPinsElement: document.querySelector('.map__pins'),
+    mapElement: mapElement,
+    mapPinsElement: mapElement.querySelector('.map__pins'),
+    mapFiltersElement: mapFiltersElement,
+    mapFiltersSelectsElements: mapFiltersElement.querySelectorAll('.map__filter'),
+    mapFiltersfieldsetElement: mapFiltersElement.querySelector('.map__features'),
     usersAds: []
-  //   uploadImageModalElement: uploadImageModalElement,
-  //   imagePreviewElement: uploadImageModalElement.querySelector('.img-upload__preview'),
-  //   effectsSliderElement: uploadImageModalElement.querySelector('.effect-level'),
-  //   originImageInputElement: uploadImageModalElement.querySelector('#effect-none'),
-  //   imageHashtagsElement: uploadImageModalElement.querySelector('.text__hashtags'),
-  //   imageDescriptionElement: uploadImageModalElement.querySelector('.text__description'),
-  //   usersPhotosSectionElement: document.querySelector('.pictures'),
-  //   bigPhotoModalElement: document.querySelector('.big-picture'),
   };
 })();

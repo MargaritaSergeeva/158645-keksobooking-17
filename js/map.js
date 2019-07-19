@@ -3,27 +3,25 @@
 (function () {
   var PIN_POINTER_HEIGHT = 16;
 
-  var mapElement = document.querySelector('.map');
   var mapPinMainElement = window.variables.mapPinsElement.querySelector('.map__pin--main');
   var addressInputElement = document.querySelector('#address');
   var pinTotalHeight = mapPinMainElement.getBoundingClientRect().height + PIN_POINTER_HEIGHT;
+  var pinHalfHeight = mapPinMainElement.getBoundingClientRect().height / 2;
   var pinHalfWidth = mapPinMainElement.getBoundingClientRect().width / 2;
   var startCoords = {};
 
-  var onErrorLoadData = function (errorMessage) {
-    window.popupMessages.showError('#error', errorMessage);
-  };
-
-  var onSuccessLoadData = function (ads) {
-    window.variables.usersAds = ads;
-    window.addOffersPins(window.variables.usersAds);
-  };
-
   var setAddressInputValue = function () {
     var locationX = Math.round(mapPinMainElement.getBoundingClientRect().left + pinHalfWidth);
-    var locationY = Math.round(mapPinMainElement.getBoundingClientRect().top + pageYOffset + pinTotalHeight);
+    var locationY = Math.round(mapPinMainElement.getBoundingClientRect().top + pageYOffset + pinHalfHeight);
 
     addressInputElement.value = locationX + ', ' + locationY;
+  };
+
+  var setPinStartCoords = function () {
+    startCoords = {
+      x: window.utils.getBlockLeftPosition(mapPinMainElement) + pageXOffset + pinHalfWidth,
+      y: window.utils.getBlockTopPosition(mapPinMainElement) + pageYOffset + pinTotalHeight
+    };
   };
 
   var changeAddressInputValue = function () {
@@ -54,34 +52,54 @@
     }
   };
 
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+    changePinPosition(moveEvt);
+    changeAddressInputValue();
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  var onErrorLoadData = function (errorMessage) {
+    window.popupMessages.showError('#error', errorMessage);
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  var onSuccessLoadData = function (ads) {
+    window.variables.usersAds = ads;
+    window.addOffersPins(window.variables.usersAds);
+    mapElement.classList.remove('map--faded');
+    window.utils.removeAttributeToElementsInCollection(window.variables.mapFiltersSelectsElements, 'disabled');
+    window.utils.removeAttributeToElement(window.variables.mapFiltersfieldsetElement, 'disabled');
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  };
+
+  var onMapClick = function (evt) {
+    if (evt.target.classList.contains('map__offer-pin-img')) {
+      var pinsCollectionElements = window.variables.mapElement.querySelectorAll('.map__pin--offer');
+      pinsCollectionElements.forEach(function (it) {
+        it.classList.remove('map__pin--active');
+      });
+      evt.target.parentNode.classList.add('map__pin--active');
+      window.renderTargetOffersCard(window.variables.usersAds, evt.target.parentNode.index);
+    }
+  };
+
   mapPinMainElement.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
-    startCoords = {
-      x: window.utils.getBlockLeftPosition(mapPinMainElement) + pageXOffset + pinHalfWidth,
-      y: window.utils.getBlockTopPosition(mapPinMainElement) + pageYOffset + pinTotalHeight
-    };
-
-    var onMouseMove = function (moveEvt) {
-      moveEvt.preventDefault();
-      changePinPosition(moveEvt);
-      changeAddressInputValue();
-    };
-
-    var onMouseUp = function (upEvt) {
-      upEvt.preventDefault();
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-
-
+    setPinStartCoords();
     window.backend.load(window.constants.Url.GET, onSuccessLoadData, onErrorLoadData);
-    mapElement.classList.remove('map--faded');
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
   });
 
   setAddressInputValue();
+  window.variables.mapElement.addEventListener('click', onMapClick);
 })();
 
 var xhr = new XMLHttpRequest();
@@ -94,3 +112,5 @@ xhr.send();
 var addressInputElement = document.querySelector('#address');
 var mapPinMainElement = window.variables.mapPinsElement.querySelector('.map__pin--main');
 var mapElement = document.querySelector('.map');
+
+var fff = mapElement.querySelectorAll('.map__pin');

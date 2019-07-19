@@ -222,15 +222,20 @@
         <li class="popup__feature popup__feature--conditioner"></li>
       </ul>
       <p class="popup__description">Великолепная квартира-студия в центре Токио. Подходит как туристам, так и бизнесменам. Квартира полностью укомплектована и недавно отремонтирована.</p>
-      <div class="popup__photos">
-        <img src="" class="popup__photo" width="45" height="40" alt="Фотография жилья">
-      </div>
+      <div class="popup__photos"></div>
     </article>
+  </template>
+
+<!-- Фотография в объявлении -->
+  <template id="card-img">
+    <img src="" class="popup__photo" width="45" height="40" alt="Фотография жилья">
   </template>
 
   <!-- Метка объявления -->
   <template id="pin">
-    <button type="button" class="map__pin" style="left: 200px; top: 400px;"><img src="img/avatars/user07.png" width="40" height="40" draggable="false" alt="Метка объявления"></button>
+    <button type="button" class="map__pin map__pin--offer" style="left: 200px; top: 400px;">
+      <img src="img/avatars/user07.png" class="map__offer-pin-img" width="40" height="40" draggable="false" alt="Метка объявления">
+    </button>
   </template>
 
   <!-- Сообщение об успешном создании объявления -->
@@ -258,6 +263,8 @@
   <script src="js/popup-messages.js"></script>
   <script src="js/loading-user-image.js"></script>
   <script src="js/coords.js"></script>
+  <script src="js/user-offer.js"></script>
+  <script src="js/user-offer-modal.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/rendering-offers-pins.js"></script>
   <script src="js/map.js"></script>
