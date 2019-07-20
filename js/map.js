@@ -73,7 +73,7 @@
   var onSuccessLoadData = function (ads) {
     window.variables.usersAds = ads;
     window.addOffersPins(window.variables.usersAds);
-    mapElement.classList.remove('map--faded');
+    window.variables.mapElement.classList.remove('map--faded');
     window.utils.removeAttributeToElementsInCollection(window.variables.mapFiltersSelectsElements, 'disabled');
     window.utils.removeAttributeToElement(window.variables.mapFiltersfieldsetElement, 'disabled');
     document.addEventListener('mousemove', onMouseMove);
@@ -93,9 +93,14 @@
 
   mapPinMainElement.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
-
     setPinStartCoords();
-    window.backend.load(window.constants.Url.GET, onSuccessLoadData, onErrorLoadData);
+
+    if (window.variables.mapElement.classList.contains('map--faded')) {
+      window.backend.load(window.constants.Url.GET, onSuccessLoadData, onErrorLoadData);
+    } else {
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    }
   });
 
   setAddressInputValue();

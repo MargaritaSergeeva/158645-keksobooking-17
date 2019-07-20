@@ -3,7 +3,7 @@
 (function () {
   var offersCardTemplateElement = document.querySelector('#card').content.querySelector('.map__card');
   var offersCardElement = offersCardTemplateElement.cloneNode(true);
-  var closureElement = offersCardElement.querySelector('.popup__close');
+  var closureoffersCardElement = offersCardElement.querySelector('.popup__close');
   var featuresElement = offersCardElement.querySelector('.popup__features');
   var photosFragment = document.createDocumentFragment();
   var openedUsersOffer = {};
@@ -53,20 +53,14 @@
     var capacityElement = offersCardElement.querySelector('.popup__text--capacity');
     var timeElement = offersCardElement.querySelector('.popup__text--time');
     var descriptionElement = offersCardElement.querySelector('.popup__description');
-    var typesHousingMap = {
-      'palace': 'Дворец',
-      'flat': 'Квартира',
-      'house': 'Дом',
-      'bungalo': 'Бунгало'
-    };
 
     hideFeatures();
     openedUsersOffer = new window.UserOffer(ad);
     userAvatarElement.src = openedUsersOffer.avatar;
     titleElement.textContent = openedUsersOffer.title;
     addressElement.textContent = openedUsersOffer.address;
-    priceElement.textContent = openedUsersOffer.price;
-    housingTypeElement.textContent = typesHousingMap[openedUsersOffer.type];
+    priceElement.innerHTML = openedUsersOffer.price + '&#x20bd;<span>/ночь</span>';
+    housingTypeElement.textContent = window.variables.typesHousingMap[openedUsersOffer.type];
     capacityElement.textContent = openedUsersOffer.rooms + ' комнат/а/ы для ' + openedUsersOffer.guests + ' гостя/ей';
     timeElement.textContent = 'Заезд после ' + openedUsersOffer.checkin + ', выезд до ' + openedUsersOffer.checkout;
     descriptionElement.textContent = openedUsersOffer.description;
@@ -84,7 +78,20 @@
 
     fillOffersCard(targetOffersCard[0]);
     window.variables.mapElement.appendChild(offersCardElement);
+    document.addEventListener('keydown', onUserOfferModalEscPress);
   };
+
+  var onUserOfferModalEscPress = function (evt) {
+    if (window.keyboard.isEscPressed(evt)) {
+      window.variables.mapElement.removeChild(offersCardElement);
+      document.removeEventListener('keydown', onUserOfferModalEscPress);
+    }
+  };
+
+  closureoffersCardElement.addEventListener('click', function () {
+    window.variables.mapElement.removeChild(offersCardElement);
+    document.removeEventListener('keydown', onUserOfferModalEscPress);
+  });
 
   window.utils.setAttributeToElementsInCollection(window.variables.mapFiltersSelectsElements, 'disabled', 'disabled');
   window.utils.setAttributeToElement(window.variables.mapFiltersfieldsetElement, 'disabled', 'disabled');

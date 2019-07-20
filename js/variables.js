@@ -11,6 +11,12 @@
     mapFiltersElement: mapFiltersElement,
     mapFiltersSelectsElements: mapFiltersElement.querySelectorAll('.map__filter'),
     mapFiltersfieldsetElement: mapFiltersElement.querySelector('.map__features'),
-    usersAds: []
+    usersAds: [],
+    typesHousingMap: {
+      'palace': 'Дворец',
+      'flat': 'Квартира',
+      'house': 'Дом',
+      'bungalo': 'Бунгало'
+    }
   };
 })();

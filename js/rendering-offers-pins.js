@@ -31,17 +31,13 @@
   window.addOffersPins = function (ads) {
     var fragment = document.createDocumentFragment();
 
-    if (ads.length > 0) {
-      ads
-      .slice(0, MAX_PINS_COUNT)
-      .forEach(function (it) {
-        fragment.appendChild(createOffersPin(it));
-      });
+    ads
+    .slice(0, MAX_PINS_COUNT)
+    .forEach(function (it) {
+      fragment.appendChild(createOffersPin(it));
+    });
 
-      removeOffersPins(window.variables.mapPinsElement);
-      window.variables.mapPinsElement.appendChild(fragment);
-    }
-
-    return {};
+    removeOffersPins(window.variables.mapPinsElement);
+    window.variables.mapPinsElement.appendChild(fragment);
   };
 })();
