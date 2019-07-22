@@ -1,17 +1,6 @@
 'use strict';
 
 (function () {
-  var checkMainHasloadingModal = function () {
-    var loadingMessageModalElement = document.querySelector('.img-upload__message--loading');
-    var loadingMessageModalInMain = Array.from(window.variables.mainElement.childNodes).some(function (it) {
-      return it === loadingMessageModalElement;
-    });
-
-    if (loadingMessageModalInMain) {
-      window.variables.mainElement.removeChild(loadingMessageModalElement);
-    }
-  };
-
   window.popupMessages = {
     showError: function (idTemplate, errorMessage) {
       var errorTemplateElement = document.querySelector(idTemplate).content.querySelector('.error');
@@ -57,7 +46,6 @@
         }
       };
 
-      checkMainHasloadingModal();
       window.variables.mainElement.appendChild(successModalElement);
       document.addEventListener('keydown', onSuccessEscPress);
 
@@ -74,13 +62,6 @@
           document.removeEventListener('keydown', onSuccessEscPress);
         }
       });
-    },
-
-    showLoading: function () {
-      var loadingTemplateElement = document.querySelector('#messages').content.querySelector('.img-upload__message--loading');
-      var loadingModalElement = loadingTemplateElement.cloneNode(true);
-
-      window.variables.mainElement.appendChild(loadingModalElement);
     }
   };
 })();

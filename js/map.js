@@ -35,8 +35,8 @@
     var pinLimits = {
       top: PIN_MOVE_UP_LIMIT + pinTotalHeight,
       bottom: PIN_MOVE_DOWN_LIMIT + pinTotalHeight,
-      left: window.utils.getBlockLeftPosition(mapElement),
-      right: window.utils.getBlockRightPosition(mapElement)
+      left: window.utils.getBlockLeftPosition(window.variables.mapElement),
+      right: window.utils.getBlockRightPosition(window.variables.mapElement)
     };
 
     if (evt.pageY >= pinLimits.top && evt.pageY <= pinLimits.bottom && evt.pageX >= pinLimits.left && evt.pageX <= pinLimits.right) {
@@ -83,6 +83,7 @@
   var onMapClick = function (evt) {
     if (evt.target.classList.contains('map__offer-pin-img')) {
       var pinsCollectionElements = window.variables.mapElement.querySelectorAll('.map__pin--offer');
+
       pinsCollectionElements.forEach(function (it) {
         it.classList.remove('map__pin--active');
       });
@@ -106,16 +107,3 @@
   setAddressInputValue();
   window.variables.mapElement.addEventListener('click', onMapClick);
 })();
-
-var xhr = new XMLHttpRequest();
-xhr.responseType = 'json';
-
-
-xhr.open('GET', 'https://js.dump.academy/keksobooking/data');
-xhr.send();
-
-var addressInputElement = document.querySelector('#address');
-var mapPinMainElement = window.variables.mapPinsElement.querySelector('.map__pin--main');
-var mapElement = document.querySelector('.map');
-
-var fff = mapElement.querySelectorAll('.map__pin');

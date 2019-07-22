@@ -9,6 +9,7 @@
     var offersPinTemplateElement = document.querySelector('#pin').content.querySelector('.map__pin');
     var offersPinElement = offersPinTemplateElement.cloneNode(true);
 
+
     if (Object.keys(ad).length > 0) {
       offersPinElement.querySelector('img').src = ad.author.avatar;
       offersPinElement.style.left = (ad.location.x - window.constants.Pin.WIDTH / 2) + 'px';
@@ -34,7 +35,9 @@
     ads
     .slice(0, MAX_PINS_COUNT)
     .forEach(function (it) {
-      fragment.appendChild(createOffersPin(it));
+      if (it.offer) {
+        fragment.appendChild(createOffersPin(it));
+      }
     });
 
     removeOffersPins(window.variables.mapPinsElement);
