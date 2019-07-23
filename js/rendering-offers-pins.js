@@ -3,8 +3,6 @@
 (function () {
   var MAX_PINS_COUNT = 5;
 
-  var childrenCount = window.variables.mapPinsElement.childNodes.length;
-
   var createOffersPin = function (ad) {
     var offersPinTemplateElement = document.querySelector('#pin').content.querySelector('.map__pin');
     var offersPinElement = offersPinTemplateElement.cloneNode(true);
@@ -23,12 +21,6 @@
     return {};
   };
 
-  var removeOffersPins = function (element) {
-    while (element.childNodes.length !== childrenCount) {
-      element.removeChild(element.lastChild);
-    }
-  };
-
   window.addOffersPins = function (ads) {
     var fragment = document.createDocumentFragment();
 
@@ -40,7 +32,7 @@
       }
     });
 
-    removeOffersPins(window.variables.mapPinsElement);
+    window.utils.removeOffersPins(window.variables.mapPinsElement, window.variables.pinsChildrenCount);
     window.variables.mapPinsElement.appendChild(fragment);
   };
 })();

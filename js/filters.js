@@ -8,7 +8,7 @@
   var housingRoomsElement = window.variables.mapFiltersElement.querySelector('#housing-rooms');
   var housingGuestsElement = window.variables.mapFiltersElement.querySelector('#housing-guests');
   var housingFeaturesElement = window.variables.mapFiltersElement.querySelector('#housing-features');
-
+  var filters = [housingTypeElement, housingPriceElement, housingRoomsElement, housingGuestsElement, housingFeaturesElement];
 
   var updateOfferPins = function (arr) {
     var housingFeaturesCheckedElements = window.variables.mapFiltersElement.querySelectorAll('.map__checkbox:checked');
@@ -80,23 +80,17 @@
     }
   };
 
-  var onInputChange = function () {
+  var onFilterChange = function () {
     window.debounce(function () {
       updateOfferPins(window.variables.usersAds);
       removeCardModalFromMap();
     });
   };
 
-  var setChangeListener = function (element) {
-    element.addEventListener('change', onInputChange);
-  };
+  for (var i = 0; i < filters.length; i++) {
+    filters[i].addEventListener('change', onFilterChange);
+  }
 
-  setChangeListener(housingTypeElement);
-  setChangeListener(housingPriceElement);
-  setChangeListener(housingRoomsElement);
-  setChangeListener(housingGuestsElement);
-  setChangeListener(housingFeaturesElement);
-
-  window.utils.setAttributeToElementsInCollection(window.variables.mapFiltersSelectsElements, 'disabled', 'disabled');
-  window.utils.setAttributeToElement(window.variables.mapFiltersfieldsetElement, 'disabled', 'disabled');
+  window.utils.addAttributeToElementsInCollection(window.variables.mapFiltersSelectsElements, 'disabled');
+  window.utils.addAttributeToElement(window.variables.mapFiltersfieldsetElement, 'disabled');
 })();

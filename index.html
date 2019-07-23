@@ -84,7 +84,7 @@
     <!-- Форма объявления -->
     <section class="notice">
       <h2 class="notice__title">Ваше объявление</h2>
-      <form class="ad-form ad-form--disabled" method="post" enctype="multipart/form-data" autocomplete="off">
+      <form class="ad-form ad-form--disabled" method="post" enctype="multipart/form-data" action="https://js.dump.academy/keksobooking" autocomplete="off">
         <fieldset class="ad-form-header">
           <legend class="ad-form-header__title">Ваша фотография (для карты)</legend>
           <div class="ad-form-header__upload">
@@ -100,7 +100,7 @@
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="title">Заголовок объявления</label>
-          <input id="title" name="title" type="text" placeholder="Милая, уютная квартирка в центре Токио">
+          <input id="title" name="title" type="text" minlength="30" maxlength="100" placeholder="Милая, уютная квартирка в центре Токио" required>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="address">Адрес</label>
@@ -117,7 +117,7 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000">
+          <input id="price" name="price" type="number" max="1000000" placeholder="5000" required>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
           <label class="ad-form__label" for="timein">Время заезда и выезда</label>
@@ -260,13 +260,16 @@
   <script src="js/debounce.js"></script>
   <script src="js/custom-validation.js"></script>
   <script src="js/keyboard.js"></script>
+  <script src="js/mode.js"></script>
   <script src="js/popup-messages.js"></script>
   <script src="js/loading-user-image.js"></script>
   <script src="js/coords.js"></script>
   <script src="js/user-offer.js"></script>
-  <script src="js/user-offer-modal.js"></script>
+  <script src="js/offer-card.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/rendering-offers-pins.js"></script>
   <script src="js/map.js"></script>
+  <script src="js/form.js"></script>
+  <script src="js/form-correlation.js"></script>
 </body>
 </html>

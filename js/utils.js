@@ -77,24 +77,52 @@
       }
     },
 
-    setAttributeToElement: function (element, attrName, attrValue) {
-      element.setAttribute(attrName, attrValue);
+    addAttributeToElement: function (element, attrName) {
+      element[attrName] = true;
     },
 
-    setAttributeToElementsInCollection: function (element, attrName, attrValue) {
-      element.forEach(function (it) {
-        window.utils.setAttributeToElement(it, attrName, attrValue);
+    addAttributeToElementsInCollection: function (elements, attrName) {
+      elements.forEach(function (it) {
+        window.utils.addAttributeToElement(it, attrName);
       });
     },
 
-    removeAttributeToElement: function (element, attrName) {
-      element.removeAttribute(attrName);
+    removeAttributeFromElement: function (element, attrName) {
+      element[attrName] = false;
     },
 
-    removeAttributeToElementsInCollection: function (element, attrName) {
-      element.forEach(function (it) {
-        window.utils.removeAttributeToElement(it, attrName);
+    removeAttributeFromElementsInCollection: function (elements, attrName) {
+      elements.forEach(function (it) {
+        window.utils.removeAttributeFromElement(it, attrName);
       });
+    },
+
+    addChangeListener: function (element, callback) {
+      element.addEventListener('change', callback);
+    },
+
+    setAddressInputValue: function () {
+      var locationX = Math.round(window.variables.mapMainPinElement.getBoundingClientRect().left + window.variables.pinHalfWidth);
+      var locationY = Math.round(window.variables.mapMainPinElement.getBoundingClientRect().top + pageYOffset + window.variables.pinHalfHeight);
+
+      window.variables.addressInputElement.value = locationX + ', ' + locationY;
+    },
+
+    removeOffersPins: function (element, childrenCount) {
+      while (element.childNodes.length !== childrenCount) {
+        element.removeChild(element.lastChild);
+      }
+    },
+
+    removeCardModalFromMap: function () {
+      var cardModalElement = document.querySelector('.map__card');
+      var cardModalInMap = Array.from(window.variables.mapElement.childNodes).some(function (it) {
+        return it === cardModalElement;
+      });
+
+      if (cardModalInMap) {
+        window.variables.mapElement.removeChild(cardModalElement);
+      }
     }
   };
 })();
