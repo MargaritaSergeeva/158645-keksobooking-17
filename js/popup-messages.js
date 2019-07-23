@@ -22,7 +22,7 @@
       document.addEventListener('keydown', onErrorEscPress);
 
       errorModalElement.addEventListener('click', function (evt) {
-        if (evt.target.className === 'error') {
+        if (evt.target.classList.contains('error')) {
           window.variables.mainElement.removeChild(errorModalElement);
           document.removeEventListener('keydown', onErrorEscPress);
         }

@@ -58,8 +58,8 @@
     },
 
     sleep: function () {
-      resetForm();
       resetMap();
+      resetForm();
       resetFilter();
     }
   };

@@ -2,26 +2,33 @@
 
 (function () {
   var formSubmitButtonElement = window.variables.formElement.querySelector('.ad-form__submit');
-  var formResetButtonElement = window.variables.formElement.querySelector('.ad-form__reset');
   var requiredInputsCollectionElements = window.variables.formElement.querySelectorAll('input[required]');
+
+  var onSuccessSendForm = function () {
+    window.popupMessages.showSuccess('#success');
+    window.mode.sleep();
+  };
+
+  var onErrorSendForm = function () {
+    window.popupMessages.showError('#error');
+  };
+
+
+  formSubmitButtonElement.addEventListener('click', function (evt) {
+    window.validateForm(requiredInputsCollectionElements);
+
+    if (window.validateForm(requiredInputsCollectionElements)) {
+      evt.preventDefault();
+      window.backend.save(window.constants.Url.POST, new FormData(window.variables.formElement), onSuccessSendForm, onErrorSendForm);
+    }
+  });
+
+  window.variables.formElement.addEventListener('reset', function (evt) {
+    evt.preventDefault();
+    window.mode.sleep();
+  });
 
   window.variables.addressInputElement.setAttribute('readonly', 'readonly');
   window.utils.setAddressInputValue();
   window.utils.addAttributeToElementsInCollection(window.variables.formFieldsetsCollectionElements, 'disabled');
-
-  formSubmitButtonElement.addEventListener('click', function () {
-    requiredInputsCollectionElements.forEach(function (it) {
-      if (it.checkValidity() === false) {
-        var inputCustomValidation = new window.CustomValidation();
-        inputCustomValidation.invalidities = [];
-        inputCustomValidation.checkValidity(it);
-        var customValidityMessage = inputCustomValidation.getInvalidities();
-        it.setCustomValidity(customValidityMessage);
-      }
-    });
-  });
-
-  formResetButtonElement.addEventListener('click', function () {
-    window.mode.sleep();
-  });
 })();
