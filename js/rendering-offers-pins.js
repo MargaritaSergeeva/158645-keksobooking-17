@@ -21,8 +21,10 @@
     return {};
   };
 
+
   window.addOffersPins = function (ads) {
     var fragment = document.createDocumentFragment();
+
 
     ads
     .slice(0, MAX_PINS_COUNT)
@@ -32,7 +34,9 @@
       }
     });
 
+    window.offerPins.removeFocusEventListener();
     window.utils.removeOffersPins(window.variables.mapPinsElement, window.variables.pinsChildrenCount);
     window.variables.mapPinsElement.appendChild(fragment);
+    window.offerPins.addFocusEventListener();
   };
 })();

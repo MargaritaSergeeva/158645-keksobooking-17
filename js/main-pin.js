@@ -2,9 +2,11 @@
 
 (function () {
   var PIN_POINTER_HEIGHT = 16;
+
+  var pinHeightFromCenterToBottom = Math.round(window.variables.pinHalfHeight + PIN_POINTER_HEIGHT);
   var startCoords = {};
 
-  var setPinStartCoords = function () {
+  var setMainPinStartCoords = function () {
     startCoords = {
       x: Math.round(window.utils.getBlockLeftPosition(window.variables.mapMainPinElement) + pageXOffset + window.variables.pinHalfWidth),
       y: Math.round(window.utils.getBlockTopPosition(window.variables.mapMainPinElement) + pageYOffset + window.variables.pinHalfHeight)
@@ -13,18 +15,18 @@
 
   var changeAddressInputValue = function () {
     var addressCoordX = startCoords.x;
-    var addressCoordY = Math.round(startCoords.y + window.variables.pinHalfHeight + PIN_POINTER_HEIGHT);
+    var addressCoordY = Math.round(startCoords.y + pinHeightFromCenterToBottom);
 
     window.variables.addressInputElement.value = addressCoordX + ', ' + addressCoordY;
   };
 
-  var changePinPosition = function (evt) {
+  var changeMainPinPosition = function (evt) {
     var PIN_MOVE_UP_LIMIT = 130;
     var PIN_MOVE_DOWN_LIMIT = 630;
 
     var pinLimits = {
-      top: PIN_MOVE_UP_LIMIT,
-      bottom: PIN_MOVE_DOWN_LIMIT,
+      top: PIN_MOVE_UP_LIMIT - pinHeightFromCenterToBottom,
+      bottom: PIN_MOVE_DOWN_LIMIT - pinHeightFromCenterToBottom,
       left: window.utils.getBlockLeftPosition(window.variables.mapElement),
       right: window.utils.getBlockRightPosition(window.variables.mapElement)
     };
@@ -48,7 +50,7 @@
 
   var onMainPinMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
-    changePinPosition(moveEvt);
+    changeMainPinPosition(moveEvt);
     changeAddressInputValue();
   };
 
@@ -56,6 +58,12 @@
     upEvt.preventDefault();
     document.removeEventListener('mousemove', onMainPinMouseMove);
     document.removeEventListener('mouseup', onMainPinMouseUp);
+  };
+
+  var onMainPinEnterPress = function (pressEvt) {
+    if (window.keyboard.isEnterPressed(pressEvt) && window.variables.mapElement.classList.contains('map--faded')) {
+      window.backend.load(window.constants.Url.GET, onSuccessLoadData, onErrorLoadData);
+    }
   };
 
   var onErrorLoadData = function (errorMessage) {
@@ -72,9 +80,10 @@
     document.addEventListener('mouseup', onMainPinMouseUp);
   };
 
+
   window.variables.mapMainPinElement.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
-    setPinStartCoords();
+    setMainPinStartCoords();
 
     if (window.variables.mapElement.classList.contains('map--faded')) {
       window.backend.load(window.constants.Url.GET, onSuccessLoadData, onErrorLoadData);
@@ -82,5 +91,13 @@
       document.addEventListener('mousemove', onMainPinMouseMove);
       document.addEventListener('mouseup', onMainPinMouseUp);
     }
+  });
+
+  window.variables.mapMainPinElement.addEventListener('focus', function () {
+    document.addEventListener('keydown', onMainPinEnterPress);
+  });
+
+  window.variables.mapMainPinElement.addEventListener('blur', function () {
+    document.removeEventListener('keydown', onMainPinEnterPress);
   });
 })();
