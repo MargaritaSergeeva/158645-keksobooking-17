@@ -24,6 +24,7 @@
   var createPhoto = function (index) {
     var photoTemplateElement = document.querySelector('#card-img').content.querySelector('.popup__photo');
     var photoElement = photoTemplateElement.cloneNode(true);
+
     photoElement.src = openedUsersOffer.photos[index];
     photosFragment.appendChild(photoElement);
   };

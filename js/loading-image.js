@@ -3,8 +3,8 @@
 (function () {
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-  window.loadImage = function (element, imgElement) {
-    var file = element.files[0];
+  window.loadImage = function (input, imgElement) {
+    var file = input.files[0];
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (it) {

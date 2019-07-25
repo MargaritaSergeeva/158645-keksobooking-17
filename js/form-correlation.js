@@ -15,9 +15,9 @@
   };
 
 
-  window.setCorrelation = function (element) {
+  window.setInputCorrelation = function (element) {
     var correlatedElement = window.variables.formElement.querySelector('#' + correlationInputsMap[element.id]);
-    var correlatedOptionElements = correlatedElement.querySelectorAll('option');
+    var correlatedOptionCollectionElements = correlatedElement.querySelectorAll('option');
     var selectedValue = element.querySelector('option:checked').value;
 
     if (element.id === 'type') {
@@ -26,11 +26,11 @@
     }
 
     if (element.id === 'timein' || element.id === 'timeout') {
-      correlatedOptionElements.forEach(function (it) {
+      correlatedOptionCollectionElements.forEach(function (it) {
         if (it.value === selectedValue) {
-          it.selected = true;
+          window.utils.addAttributeToElement(it, 'selected');
         } else {
-          it.selected = false;
+          window.utils.removeAttributeFromElement(it, 'selected');
         }
       });
     }
@@ -39,15 +39,15 @@
       var MAX_ROOMS_COUNT = 100;
       var notForGuestsOptionElement = correlatedElement.querySelector('option[value="0"]');
 
-      window.utils.addAttributeToElementsInCollection(correlatedOptionElements, 'disabled');
+      window.utils.addAttributeToElementsInCollection(correlatedOptionCollectionElements, 'disabled');
 
       if (+selectedValue !== MAX_ROOMS_COUNT) {
-        correlatedOptionElements.forEach(function (it) {
+        correlatedOptionCollectionElements.forEach(function (it) {
           if (+it.value !== 0 && +it.value <= +selectedValue) {
             window.utils.removeAttributeFromElement(it, 'disabled');
             if (it.value === selectedValue) {
-              window.utils.removeAttributeFromElementsInCollection(correlatedOptionElements, 'selected');
-              it.selected = true;
+              window.utils.removeAttributeFromElementsInCollection(correlatedOptionCollectionElements, 'selected');
+              window.utils.addAttributeToElement(it, 'selected');
             }
           }
         });
@@ -60,12 +60,12 @@
 
   var addChangeListener = function (element) {
     element.addEventListener('change', function () {
-      window.setCorrelation(element);
+      window.setInputCorrelation(element);
     });
   };
 
-  for (var i = 0; i < window.variables.formSelects.length; i++) {
-    window.setCorrelation(window.variables.formSelects[i]);
-    addChangeListener(window.variables.formSelects[i]);
-  }
+  window.variables.formSelects.forEach(function (it) {
+    window.setInputCorrelation(it);
+    addChangeListener(it);
+  });
 })();

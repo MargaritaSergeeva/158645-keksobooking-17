@@ -11,7 +11,7 @@
   var filters = [housingTypeElement, housingPriceElement, housingRoomsElement, housingGuestsElement, housingFeaturesElement];
 
   var updateOfferPins = function (arr) {
-    var housingFeaturesCheckedElements = window.variables.mapFiltersElement.querySelectorAll('.map__checkbox:checked');
+    var housingFeaturesCheckedCollectionElements = window.variables.mapFiltersElement.querySelectorAll('.map__checkbox:checked');
     var newOfferPins = arr.slice();
     var priceLimitsMap = {
       'low': {
@@ -54,11 +54,11 @@
       });
     }
 
-    if (housingFeaturesCheckedElements.length > 0) {
-      for (var i = 0; i < housingFeaturesCheckedElements.length; i++) {
+    if (housingFeaturesCheckedCollectionElements.length > 0) {
+      for (var i = 0; i < housingFeaturesCheckedCollectionElements.length; i++) {
         newOfferPins = newOfferPins.filter(function (it) {
           var sameFeature = it.offer.features.some(function (element) {
-            return element === housingFeaturesCheckedElements[i].value;
+            return element === housingFeaturesCheckedCollectionElements[i].value;
           });
 
           return sameFeature;
@@ -76,7 +76,7 @@
     });
 
     if (cardModalInMap) {
-      window.variables.mapElement.removeChild(cardModalElement);
+      window.variables.mapElement.removeChild(window.variables.mapElement.querySelector('.map__card'));
     }
   };
 
@@ -87,9 +87,9 @@
     });
   };
 
-  for (var i = 0; i < filters.length; i++) {
-    filters[i].addEventListener('change', onFilterChange);
-  }
+  filters.forEach(function (it) {
+    it.addEventListener('change', onFilterChange);
+  });
 
   window.utils.addAttributeToElementsInCollection(window.variables.mapFiltersSelectsElements, 'disabled');
   window.utils.addAttributeToElement(window.variables.mapFiltersfieldsetElement, 'disabled');

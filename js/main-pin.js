@@ -6,6 +6,7 @@
   var pinHeightFromCenterToBottom = Math.round(window.variables.pinHalfHeight + PIN_POINTER_HEIGHT);
   var startCoords = {};
 
+
   var setMainPinStartCoords = function () {
     startCoords = {
       x: Math.round(window.utils.getBlockLeftPosition(window.variables.mapMainPinElement) + pageXOffset + window.variables.pinHalfWidth),

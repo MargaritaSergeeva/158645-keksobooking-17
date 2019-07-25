@@ -14,19 +14,6 @@
       }
     },
 
-    hideElement: function (element) {
-      if (element) {
-        element.classList.add('visually-hidden');
-      }
-    },
-
-    getRandomValue: function (arr) {
-      if (arr.length > 0) {
-        return arr[Math.round(-0.5 + Math.random() * arr.length)];
-      }
-
-      return 0;
-    },
 
     getBlockTopPosition: function (element) {
       return element ? element.getBoundingClientRect().top : '';
@@ -40,40 +27,9 @@
       return element ? element.getBoundingClientRect().right : '';
     },
 
-    resetBlockPosition: function (element) {
-      element.style.top = '';
-      element.style.left = '';
-    },
-
     resetInputValue: function (input) {
       if (input) {
         input.value = '';
-      }
-    },
-
-    resetElementStyle: function (element, selector) {
-      if (element) {
-        element.style[selector] = '';
-      }
-    },
-
-    compareRandom: function () {
-      return Math.random() - 0.5;
-    },
-
-    compareNumbersGoDown: function (left, right) {
-      if (left > right) {
-        return -1;
-      } else if (left < right) {
-        return 1;
-      } else {
-        return 0;
-      }
-    },
-
-    assignOneClassToElement: function (element, elementClass) {
-      if (element) {
-        element.className = elementClass;
       }
     },
 
@@ -95,10 +51,6 @@
       elements.forEach(function (it) {
         window.utils.removeAttributeFromElement(it, attrName);
       });
-    },
-
-    addChangeListener: function (element, callback) {
-      element.addEventListener('change', callback);
     },
 
     setAddressInputValue: function () {

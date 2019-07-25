@@ -25,7 +25,6 @@
   window.addOffersPins = function (ads) {
     var fragment = document.createDocumentFragment();
 
-
     ads
     .slice(0, MAX_PINS_COUNT)
     .forEach(function (it) {

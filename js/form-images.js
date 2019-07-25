@@ -1,30 +1,31 @@
 'use strict';
 
 (function () {
-  var avatarInputElement = window.variables.formElement.querySelector('#avatar');
-  var imageInputElement = window.variables.formElement.querySelector('#images');
+  var formAvatarInputElement = window.variables.formElement.querySelector('#avatar');
+  var formImageInputElement = window.variables.formElement.querySelector('#images');
 
   var onAvatarInputChange = function () {
-    window.loadImage(avatarInputElement, window.variables.formAvatarPreviewElement.querySelector('img'));
+    window.loadImage(formAvatarInputElement, window.variables.formAvatarPreviewElement.querySelector('img'));
   };
 
   var onImageInputChange = function () {
     var formImageTemplateElement = document.querySelector('#form-img').content.querySelector('.ad-form__photo-img');
     var formImageElement = formImageTemplateElement.cloneNode(true);
-    var formimageElements = window.variables.formElement.querySelectorAll('.ad-form__photo-img');
+    var formImageCollectionElements = window.variables.formElement.querySelectorAll('.ad-form__photo-img');
+    var formImageBlockElement = window.variables.formElement.querySelector('.ad-form__photo');
 
-    if (formimageElements.length === 0) {
-      window.variables.formImageBlockElement.appendChild(formImageElement);
-      window.loadImage(imageInputElement, formImageElement);
+    if (!formImageCollectionElements.length) {
+      formImageBlockElement.appendChild(formImageElement);
+      window.loadImage(formImageInputElement, formImageElement);
     } else {
-      var imageBlockCloneElement = window.variables.formImageBlockElement.cloneNode(true);
+      var imageBlockCloneElement = formImageBlockElement.cloneNode(true);
 
       window.variables.formImageBlockContainerElement.appendChild(imageBlockCloneElement);
-      imageBlockCloneElement.id = 'photo-' + (+formimageElements.length + 1);
-      window.loadImage(imageInputElement, imageBlockCloneElement.querySelector('.ad-form__photo-img'));
+      imageBlockCloneElement.id = 'photo-' + (+formImageCollectionElements.length + 1);
+      window.loadImage(formImageInputElement, imageBlockCloneElement.querySelector('.ad-form__photo-img'));
     }
 
-    window.utils.resetInputValue(imageInputElement);
+    window.utils.resetInputValue(formImageInputElement);
   };
 
   var onFormImageContainerDragStart = function (evt) {
@@ -82,8 +83,8 @@
     }
   };
 
-  avatarInputElement.addEventListener('change', onAvatarInputChange);
-  imageInputElement.addEventListener('change', onImageInputChange);
+  formAvatarInputElement.addEventListener('change', onAvatarInputChange);
+  formImageInputElement.addEventListener('change', onImageInputChange);
   window.variables.formImageBlockContainerElement.addEventListener('dragstart', onFormImageContainerDragStart);
   window.variables.formImageBlockContainerElement.addEventListener('dragover', onFormImageContainerDragOver);
   window.variables.formImageBlockContainerElement.addEventListener('dragleave', onFormImageContainerDragLeave);

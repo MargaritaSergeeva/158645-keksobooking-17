@@ -40,7 +40,6 @@
     addressInputElement: formElement.querySelector('#address'),
     formAvatarPreviewElement: formElement.querySelector('.ad-form-header__preview'),
     formImageBlockContainerElement: formElement.querySelector('.ad-form__photo-container'),
-    formImageBlockElement: formElement.querySelector('.ad-form__photo'),
     usersAds: [],
   };
 })();
