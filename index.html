@@ -109,8 +109,8 @@
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="type">Тип жилья</label>
           <select id="type" name="type">
-            <option value="bungalo" selected>Бунгало</option>
-            <option value="flat">Квартира</option>
+            <option value="bungalo">Бунгало</option>
+            <option value="flat"  selected>Квартира</option>
             <option value="house">Дом</option>
             <option value="palace">Дворец</option>
           </select>
@@ -176,7 +176,7 @@
               <input type="file" id="images" name="images" class="ad-form__input visually-hidden">
               <label for="images" class="ad-form__drop-zone">Загрузите или&nbsp;перетащите сюда фото</label>
             </div>
-            <div class="ad-form__photo"></div>
+            <div id='photo-1' class="ad-form__photo" draggable="true"></div>
           </div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--submit">
@@ -226,9 +226,14 @@
     </article>
   </template>
 
-<!-- Фотография в объявлении -->
+<!-- Фотография в выбранном объявлении -->
   <template id="card-img">
     <img src="" class="popup__photo" width="45" height="40" alt="Фотография жилья">
+  </template>
+
+<!-- Фотография в форме -->
+  <template id="form-img">
+    <img src="" class="ad-form__photo-img" width="70" height="70" alt="Фотография жилья">
   </template>
 
   <!-- Метка объявления -->
@@ -256,13 +261,13 @@
   <script src="js/constants.js"></script>
   <script src="js/variables.js"></script>
   <script src="js/utils.js"></script>
+  <script src="js/loading-image.js"></script>
   <script src="js/backend.js"></script>
   <script src="js/debounce.js"></script>
   <script src="js/custom-validation.js"></script>
   <script src="js/keyboard.js"></script>
   <script src="js/mode.js"></script>
   <script src="js/popup-messages.js"></script>
-  <script src="js/loading-user-image.js"></script>
   <script src="js/coords.js"></script>
   <script src="js/user-offer.js"></script>
   <script src="js/offer-card.js"></script>
@@ -272,6 +277,7 @@
   <script src="js/map.js"></script>
   <script src="js/form-correlation.js"></script>
   <script src="js/form-validation.js"></script>
+  <script src="js/form-images.js"></script>
   <script src="js/form.js"></script>
 </body>
 </html>

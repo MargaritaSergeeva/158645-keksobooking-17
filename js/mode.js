@@ -3,17 +3,46 @@
 (function () {
   var optionCollectionElements;
 
+  var resetFormImages = function () {
+    var AVATAR_DEFAULT = 'img/muffin-grey.svg';
+    var FIRST_IMAGE_BLOCK_ID = 'photo-1';
+
+    var formImageBlockElements = window.variables.formElement.querySelectorAll('.ad-form__photo');
+    var formImageElement = window.variables.formImageBlockElement.querySelector('.ad-form__photo-img');
+
+
+    window.variables.formAvatarPreviewElement.querySelector('img').src = AVATAR_DEFAULT;
+
+    formImageBlockElements.forEach(function (it, index) {
+      if (index > 0) {
+        window.variables.formImageBlockContainerElement.removeChild(it);
+      } else {
+        var isImageInForm = Array.from(it.childNodes).some(function (node) {
+          return node.classList.contains(formImageElement.className);
+        });
+
+        if (isImageInForm) {
+          it.removeChild(it.querySelector('.ad-form__photo-img'));
+          it.id = FIRST_IMAGE_BLOCK_ID;
+        }
+      }
+    });
+  };
+
   var resetForm = function () {
     var formCheckboxsElements = window.variables.formElement.querySelectorAll('.feature__checkbox');
     var inputIdentifiers = ['avatar', 'title', 'price', 'description', 'images'];
 
+    resetFormImages();
     inputIdentifiers.forEach(function (it) {
       window.utils.resetInputValue(window.variables.formElement.querySelector('#' + it));
     });
+
     window.variables.formSelects.forEach(function (it) {
       optionCollectionElements = it.querySelectorAll('option');
       window.utils.removeAttributeFromElementsInCollection(optionCollectionElements, 'selected');
     });
+
     window.utils.removeAttributeFromElementsInCollection(formCheckboxsElements, 'checked');
     window.setCorrelation(window.variables.roomNumberSelectElement);
     window.setCorrelation(window.variables.housingTypeSelectElement);

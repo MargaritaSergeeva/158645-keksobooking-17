@@ -46,30 +46,30 @@
     }
   };
 
-  var onMouseMove = function (moveEvt) {
+  var onMainPinMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
     changePinPosition(moveEvt);
     changeAddressInputValue();
   };
 
-  var onMouseUp = function (upEvt) {
+  var onMainPinMouseUp = function (upEvt) {
     upEvt.preventDefault();
-    document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
+    document.removeEventListener('mousemove', onMainPinMouseMove);
+    document.removeEventListener('mouseup', onMainPinMouseUp);
   };
 
   var onErrorLoadData = function (errorMessage) {
     window.popupMessages.showError('#error', errorMessage);
-    document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
+    document.removeEventListener('mousemove', onMainPinMouseMove);
+    document.removeEventListener('mouseup', onMainPinMouseUp);
   };
 
   var onSuccessLoadData = function (ads) {
     window.variables.usersAds = ads;
     window.addOffersPins(window.variables.usersAds);
     window.mode.active();
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mousemove', onMainPinMouseMove);
+    document.addEventListener('mouseup', onMainPinMouseUp);
   };
 
   window.variables.mapMainPinElement.addEventListener('mousedown', function (evt) {
@@ -79,8 +79,8 @@
     if (window.variables.mapElement.classList.contains('map--faded')) {
       window.backend.load(window.constants.Url.GET, onSuccessLoadData, onErrorLoadData);
     } else {
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp);
+      document.addEventListener('mousemove', onMainPinMouseMove);
+      document.addEventListener('mouseup', onMainPinMouseUp);
     }
   });
 })();

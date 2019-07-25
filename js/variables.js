@@ -12,6 +12,7 @@
   var roomNumberSelectElement = formElement.querySelector('#room_number');
   var formSelects = [housingTypeSelectElement, timeInSelectElement, timeOutSelectElement, roomNumberSelectElement];
 
+
   window.variables = {
     mainElement: document.querySelector('main'),
     mapElement: mapElement,
@@ -37,6 +38,9 @@
       'bungalo': 'Бунгало'
     },
     addressInputElement: formElement.querySelector('#address'),
+    formAvatarPreviewElement: formElement.querySelector('.ad-form-header__preview'),
+    formImageBlockContainerElement: formElement.querySelector('.ad-form__photo-container'),
+    formImageBlockElement: formElement.querySelector('.ad-form__photo'),
     usersAds: [],
   };
 })();
