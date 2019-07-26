@@ -3,15 +3,16 @@
 (function () {
   var ANY_INPUT_VALUE = 'any';
 
-  var housingTypeElement = window.variables.mapFiltersElement.querySelector('#housing-type');
-  var housingPriceElement = window.variables.mapFiltersElement.querySelector('#housing-price');
-  var housingRoomsElement = window.variables.mapFiltersElement.querySelector('#housing-rooms');
-  var housingGuestsElement = window.variables.mapFiltersElement.querySelector('#housing-guests');
-  var housingFeaturesElement = window.variables.mapFiltersElement.querySelector('#housing-features');
+  var housingTypeElement = window.variable.mapFiltersElement.querySelector('#housing-type');
+  var housingPriceElement = window.variable.mapFiltersElement.querySelector('#housing-price');
+  var housingRoomsElement = window.variable.mapFiltersElement.querySelector('#housing-rooms');
+  var housingGuestsElement = window.variable.mapFiltersElement.querySelector('#housing-guests');
+  var housingFeaturesElement = window.variable.mapFiltersElement.querySelector('#housing-features');
   var filters = [housingTypeElement, housingPriceElement, housingRoomsElement, housingGuestsElement, housingFeaturesElement];
 
+
   var updateOfferPins = function (arr) {
-    var housingFeaturesCheckedCollectionElements = window.variables.mapFiltersElement.querySelectorAll('.map__checkbox:checked');
+    var housingFeaturesCheckedCollectionElements = window.variable.mapFiltersElement.querySelectorAll('.map__checkbox:checked');
     var newOfferPins = arr.slice();
     var priceLimitMap = {
       'low': {
@@ -71,18 +72,18 @@
 
   var removeCardModalFromMap = function () {
     var cardModalElement = document.querySelector('.map__card');
-    var cardModalInMap = Array.from(window.variables.mapElement.childNodes).some(function (it) {
+    var cardModalInMap = Array.from(window.variable.mapElement.childNodes).some(function (it) {
       return it === cardModalElement;
     });
 
     if (cardModalInMap) {
-      window.variables.mapElement.removeChild(window.variables.mapElement.querySelector('.map__card'));
+      window.variable.mapElement.removeChild(window.variable.mapElement.querySelector('.map__card'));
     }
   };
 
   var onFilterChange = function () {
     window.debounce(function () {
-      updateOfferPins(window.variables.usersAds);
+      updateOfferPins(window.variable.usersAds);
       removeCardModalFromMap();
     });
   };
@@ -91,6 +92,6 @@
     it.addEventListener('change', onFilterChange);
   });
 
-  window.utils.addAttributeToElementsInCollection(window.variables.mapFiltersSelectsElements, 'disabled');
-  window.utils.addAttributeToElement(window.variables.mapFiltersfieldsetElement, 'disabled');
+  window.util.addAttributeToElementsInCollection(window.variable.mapFiltersSelectsElements, 'disabled');
+  window.util.addAttributeToElement(window.variable.mapFiltersfieldsetElement, 'disabled');
 })();

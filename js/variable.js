@@ -13,7 +13,7 @@
   var formSelects = [housingTypeSelectElement, timeInSelectElement, timeOutSelectElement, roomNumberSelectElement];
 
 
-  window.variables = {
+  window.variable = {
     mainElement: document.querySelector('main'),
     mapElement: mapElement,
     mapPinsElement: mapElement.querySelector('.map__pins'),

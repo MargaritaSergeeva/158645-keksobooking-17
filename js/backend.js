@@ -7,7 +7,7 @@
       xhr.responseType = 'json';
 
       xhr.addEventListener('load', function () {
-        if (xhr.status === window.constants.SUCСESS__STATUS) {
+        if (xhr.status === window.constant.SUCСESS__STATUS) {
           onLoad(xhr.response);
         } else {
           onError('Статус ответа сервера: ' + xhr.status);
@@ -27,7 +27,7 @@
       xhr.responseType = 'json';
 
       xhr.addEventListener('load', function () {
-        if (xhr.status === window.constants.SUCСESS__STATUS) {
+        if (xhr.status === window.constant.SUCСESS__STATUS) {
           onLoad();
         } else {
           onError();

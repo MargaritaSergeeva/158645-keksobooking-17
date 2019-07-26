@@ -1,18 +1,18 @@
 'use strict';
 
 (function () {
-  var formAvatarInputElement = window.variables.formElement.querySelector('#avatar');
-  var formImageInputElement = window.variables.formElement.querySelector('#images');
+  var formAvatarInputElement = window.variable.formElement.querySelector('#avatar');
+  var formImageInputElement = window.variable.formElement.querySelector('#images');
 
   var onAvatarInputChange = function () {
-    window.loadImage(formAvatarInputElement, window.variables.formAvatarPreviewElement.querySelector('img'));
+    window.loadImage(formAvatarInputElement, window.variable.formAvatarPreviewElement.querySelector('img'));
   };
 
   var onImageInputChange = function () {
     var formImageTemplateElement = document.querySelector('#form-img').content.querySelector('.ad-form__photo-img');
     var formImageElement = formImageTemplateElement.cloneNode(true);
-    var formImageCollectionElements = window.variables.formElement.querySelectorAll('.ad-form__photo-img');
-    var formImageBlockElement = window.variables.formElement.querySelector('.ad-form__photo');
+    var formImageCollectionElements = window.variable.formElement.querySelectorAll('.ad-form__photo-img');
+    var formImageBlockElement = window.variable.formElement.querySelector('.ad-form__photo');
 
     if (!formImageCollectionElements.length) {
       formImageBlockElement.appendChild(formImageElement);
@@ -20,12 +20,12 @@
     } else {
       var imageBlockCloneElement = formImageBlockElement.cloneNode(true);
 
-      window.variables.formImageBlockContainerElement.appendChild(imageBlockCloneElement);
+      window.variable.formImageBlockContainerElement.appendChild(imageBlockCloneElement);
       imageBlockCloneElement.id = 'photo-' + (+formImageCollectionElements.length + 1);
       window.loadImage(formImageInputElement, imageBlockCloneElement.querySelector('.ad-form__photo-img'));
     }
 
-    window.utils.resetInputValue(formImageInputElement);
+    window.util.resetInputValue(formImageInputElement);
   };
 
   var onFormImageContainerDragStart = function (evt) {
@@ -64,7 +64,7 @@
 
     if (targetPhoto.classList.contains('ad-form__photo')) {
       var idMovedPhoto = evt.dataTransfer.getData('text');
-      var movedPhotoElement = window.variables.formImageBlockContainerElement.querySelector('#' + idMovedPhoto);
+      var movedPhotoElement = window.variable.formImageBlockContainerElement.querySelector('#' + idMovedPhoto);
       var container = targetPhoto.parentNode;
       var indexTarget = Array.from(container.childNodes).indexOf(targetPhoto);
       var indexMovedPhoto = Array.from(container.childNodes).indexOf(movedPhotoElement);
@@ -85,8 +85,8 @@
 
   formAvatarInputElement.addEventListener('change', onAvatarInputChange);
   formImageInputElement.addEventListener('change', onImageInputChange);
-  window.variables.formImageBlockContainerElement.addEventListener('dragstart', onFormImageContainerDragStart);
-  window.variables.formImageBlockContainerElement.addEventListener('dragover', onFormImageContainerDragOver);
-  window.variables.formImageBlockContainerElement.addEventListener('dragleave', onFormImageContainerDragLeave);
-  window.variables.formImageBlockContainerElement.addEventListener('drop', onFormImageContainerDrop);
+  window.variable.formImageBlockContainerElement.addEventListener('dragstart', onFormImageContainerDragStart);
+  window.variable.formImageBlockContainerElement.addEventListener('dragover', onFormImageContainerDragOver);
+  window.variable.formImageBlockContainerElement.addEventListener('dragleave', onFormImageContainerDragLeave);
+  window.variable.formImageBlockContainerElement.addEventListener('drop', onFormImageContainerDrop);
 })();

@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.Coords = function (evt) {
+  window.Coord = function (evt) {
     this.x = evt.pageX;
     this.y = evt.pageY;
   };

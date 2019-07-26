@@ -10,10 +10,10 @@
 
     if (Object.keys(ad).length > 0) {
       offersPinElement.querySelector('img').src = ad.author.avatar;
-      offersPinElement.style.left = (ad.location.x - window.constants.Pin.WIDTH / 2) + 'px';
-      offersPinElement.style.top = (ad.location.y - window.constants.Pin.HEIGHT) + 'px';
+      offersPinElement.style.left = (ad.location.x - window.constant.Pin.WIDTH / 2) + 'px';
+      offersPinElement.style.top = (ad.location.y - window.constant.Pin.HEIGHT) + 'px';
       offersPinElement.alt = ad.offer.title;
-      offersPinElement.index = window.variables.usersAds.indexOf(ad);
+      offersPinElement.index = window.variable.usersAds.indexOf(ad);
 
       return offersPinElement;
     }
@@ -33,9 +33,9 @@
       }
     });
 
-    window.offerPins.removeFocusEventListener();
-    window.utils.removeOffersPins(window.variables.mapPinsElement, window.variables.pinsChildrenCount);
-    window.variables.mapPinsElement.appendChild(fragment);
-    window.offerPins.addFocusEventListener();
+    window.offerPin.removeFocusEventListener();
+    window.util.removeOffersPins(window.variable.mapPinsElement, window.variable.pinsChildrenCount);
+    window.variable.mapPinsElement.appendChild(fragment);
+    window.offerPin.addFocusEventListener();
   };
 })();

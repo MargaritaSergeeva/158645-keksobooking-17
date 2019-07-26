@@ -3,13 +3,13 @@
 (function () {
   var onOfferPinEnterPress = function (pressEvt) {
     if (window.keyboard.isEnterPressed(pressEvt)) {
-      var pinsCollectionElements = window.variables.mapElement.querySelectorAll('.map__pin--offer');
+      var pinsCollectionElements = window.variable.mapElement.querySelectorAll('.map__pin--offer');
 
       pinsCollectionElements.forEach(function (it) {
         it.classList.remove('map__pin--active');
       });
       pressEvt.target.classList.add('map__pin--active');
-      window.renderTargetOffersCard(window.variables.usersAds, pressEvt.target.index);
+      window.renderTargetOffersCard(window.variable.usersAds, pressEvt.target.index);
     }
   };
 
@@ -21,9 +21,9 @@
     document.removeEventListener('keydown', onOfferPinEnterPress);
   };
 
-  window.offerPins = {
+  window.offerPin = {
     removeFocusEventListener: function () {
-      var offerPinElements = window.variables.mapPinsElement.querySelectorAll('.map__pin--offer');
+      var offerPinElements = window.variable.mapPinsElement.querySelectorAll('.map__pin--offer');
 
       if (offerPinElements.length > 0) {
         offerPinElements.forEach(function (it) {
@@ -34,7 +34,7 @@
     },
 
     addFocusEventListener: function () {
-      var offerPinElements = window.variables.mapPinsElement.querySelectorAll('.map__pin--offer');
+      var offerPinElements = window.variable.mapPinsElement.querySelectorAll('.map__pin--offer');
 
       if (offerPinElements.length > 0) {
         offerPinElements.forEach(function (it) {

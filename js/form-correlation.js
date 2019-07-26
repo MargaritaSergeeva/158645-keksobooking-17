@@ -18,7 +18,7 @@
 
 
   window.setInputCorrelation = function (element) {
-    var correlatedElement = window.variables.formElement.querySelector('#' + correlationInputsMap[element.id]);
+    var correlatedElement = window.variable.formElement.querySelector('#' + correlationInputsMap[element.id]);
     var correlatedOptionCollectionElements = correlatedElement.querySelectorAll('option');
     var selectedValue = element.querySelector('option:checked').value;
 
@@ -30,9 +30,9 @@
     if (element.id === 'timein' || element.id === 'timeout') {
       correlatedOptionCollectionElements.forEach(function (it) {
         if (it.value === selectedValue) {
-          window.utils.addAttributeToElement(it, 'selected');
+          window.util.addAttributeToElement(it, 'selected');
         } else {
-          window.utils.removeAttributeFromElement(it, 'selected');
+          window.util.removeAttributeFromElement(it, 'selected');
         }
       });
     }
@@ -40,21 +40,21 @@
     if (element.id === 'room_number') {
       var notForGuestsOptionElement = correlatedElement.querySelector('option[value="0"]');
 
-      window.utils.addAttributeToElementsInCollection(correlatedOptionCollectionElements, 'disabled');
+      window.util.addAttributeToElementsInCollection(correlatedOptionCollectionElements, 'disabled');
 
       if (+selectedValue !== MAX_ROOMS_COUNT) {
         correlatedOptionCollectionElements.forEach(function (it) {
           if (+it.value !== 0 && +it.value <= +selectedValue) {
-            window.utils.removeAttributeFromElement(it, 'disabled');
+            window.util.removeAttributeFromElement(it, 'disabled');
             if (it.value === selectedValue) {
-              window.utils.removeAttributeFromElementsInCollection(correlatedOptionCollectionElements, 'selected');
-              window.utils.addAttributeToElement(it, 'selected');
+              window.util.removeAttributeFromElementsInCollection(correlatedOptionCollectionElements, 'selected');
+              window.util.addAttributeToElement(it, 'selected');
             }
           }
         });
       } else {
-        window.utils.removeAttributeFromElement(notForGuestsOptionElement, 'disabled');
-        window.utils.addAttributeToElement(notForGuestsOptionElement, 'selected');
+        window.util.removeAttributeFromElement(notForGuestsOptionElement, 'disabled');
+        window.util.addAttributeToElement(notForGuestsOptionElement, 'selected');
       }
     }
   };
@@ -65,7 +65,7 @@
     });
   };
 
-  window.variables.formSelects.forEach(function (it) {
+  window.variable.formSelects.forEach(function (it) {
     window.setInputCorrelation(it);
     addChangeListener(it);
   });

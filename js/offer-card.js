@@ -35,7 +35,7 @@
     photosListElement.innerHTML = '';
 
     if (openedUsersOffer.photos) {
-      window.utils.showElement(photosListElement);
+      window.util.showElement(photosListElement);
 
       for (var i = 0; i < openedUsersOffer.photos.length; i++) {
         createPhoto(i);
@@ -43,7 +43,7 @@
 
       photosListElement.appendChild(photosFragment);
     } else {
-      window.utils.closeElement(photosListElement);
+      window.util.closeElement(photosListElement);
     }
   };
 
@@ -51,19 +51,19 @@
     var featuresCollectionElements = featuresListElement.querySelectorAll('.popup__feature');
 
     featuresCollectionElements.forEach(function (it) {
-      window.utils.closeElement(it);
+      window.util.closeElement(it);
     });
   };
 
   var addFeatures = function () {
     if (openedUsersOffer.features.length > 0) {
-      window.utils.showElement(featuresListElement);
+      window.util.showElement(featuresListElement);
 
       openedUsersOffer.features.forEach(function (it) {
-        window.utils.showElement(featuresListElement.querySelector('.popup__feature--' + it));
+        window.util.showElement(featuresListElement.querySelector('.popup__feature--' + it));
       });
     } else {
-      window.utils.closeElement(featuresListElement);
+      window.util.closeElement(featuresListElement);
     }
   };
 
@@ -110,7 +110,7 @@
     titleElement.textContent = (openedUsersOffer.title) ? openedUsersOffer.title : Default.TITLE;
     addressElement.textContent = (openedUsersOffer.address) ? openedUsersOffer.address : Default.ADDRESS;
     priceElement.innerHTML = (openedUsersOffer.price) ? openedUsersOffer.price + '&#x20bd;<span>/ночь</span>' : Default.PRICE;
-    housingTypeElement.textContent = (openedUsersOffer.type) ? window.variables.typesHousingMap[openedUsersOffer.type] : Default.TYPE;
+    housingTypeElement.textContent = (openedUsersOffer.type) ? window.variable.typesHousingMap[openedUsersOffer.type] : Default.TYPE;
     descriptionElement.textContent = (openedUsersOffer.description) ? openedUsersOffer.description : Default.DESCRIPTION;
     fillRoomsAndGuests(openedUsersOffer);
     fillTiming(openedUsersOffer);
@@ -120,13 +120,13 @@
 
   var onUserOfferModalEscPress = function (evt) {
     if (window.keyboard.isEscPressed(evt)) {
-      window.variables.mapElement.removeChild(offersCardElement);
+      window.variable.mapElement.removeChild(offersCardElement);
       document.removeEventListener('keydown', onUserOfferModalEscPress);
     }
   };
 
   var onClosureClick = function () {
-    window.variables.mapElement.removeChild(offersCardElement);
+    window.variable.mapElement.removeChild(offersCardElement);
     document.removeEventListener('keydown', onUserOfferModalEscPress);
   };
 
@@ -136,7 +136,7 @@
     });
 
     fillOffersCard(targetOffersCard[0]);
-    window.variables.mapElement.appendChild(offersCardElement);
+    window.variable.mapElement.appendChild(offersCardElement);
     document.addEventListener('keydown', onUserOfferModalEscPress);
   };
 

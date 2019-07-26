@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.constants = {
+  window.constant = {
     Url: {
       GET: 'https://js.dump.academy/keksobooking/data',
       POST: 'https://js.dump.academy/keksobooking'

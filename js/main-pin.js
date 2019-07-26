@@ -5,30 +5,30 @@
   var PIN_MOVE_UP_LIMIT = 130;
   var PIN_MOVE_DOWN_LIMIT = 630;
 
-  var pinHeightFromCenterToBottom = Math.round(window.variables.pinHalfHeight + PIN_POINTER_HEIGHT);
+  var pinHeightFromCenterToBottom = Math.round(window.variable.pinHalfHeight + PIN_POINTER_HEIGHT);
   var startCoords = {};
 
 
   var setMainPinStartCoords = function () {
     startCoords = {
-      x: window.utils.getBlockLeftPosition(window.variables.mapMainPinElement) + pageXOffset + window.variables.pinHalfWidth,
-      y: window.utils.getBlockTopPosition(window.variables.mapMainPinElement) + pageYOffset + window.variables.pinHalfHeight
+      x: window.util.getBlockLeftPosition(window.variable.mapMainPinElement) + pageXOffset + window.variable.pinHalfWidth,
+      y: window.util.getBlockTopPosition(window.variable.mapMainPinElement) + pageYOffset + window.variable.pinHalfHeight
     };
   };
 
   var changeAddressInputValue = function () {
-    var addressCoordX = startCoords.x;
-    var addressCoordY = startCoords.y + pinHeightFromCenterToBottom;
+    var addressCoordX = Math.round(startCoords.x);
+    var addressCoordY = Math.round(startCoords.y + pinHeightFromCenterToBottom);
 
-    window.variables.addressInputElement.value = addressCoordX + ', ' + addressCoordY;
+    window.variable.addressInputElement.value = addressCoordX + ', ' + addressCoordY;
   };
 
   var changeMainPinPosition = function (evt) {
     var pinLimit = {
       top: PIN_MOVE_UP_LIMIT - pinHeightFromCenterToBottom,
       bottom: PIN_MOVE_DOWN_LIMIT - pinHeightFromCenterToBottom,
-      left: window.utils.getBlockLeftPosition(window.variables.mapElement),
-      right: window.utils.getBlockRightPosition(window.variables.mapElement)
+      left: window.util.getBlockLeftPosition(window.variable.mapElement),
+      right: window.util.getBlockRightPosition(window.variable.mapElement)
     };
 
     if (evt.pageY >= pinLimit.top &&
@@ -41,10 +41,10 @@
         y: startCoords.y - evt.pageY
       };
 
-      startCoords = new window.Coords(evt);
+      startCoords = new window.Coord(evt);
 
-      window.variables.mapMainPinElement.style.top = window.variables.mapMainPinElement.offsetTop - shift.y + 'px';
-      window.variables.mapMainPinElement.style.left = window.variables.mapMainPinElement.offsetLeft - shift.x + 'px';
+      window.variable.mapMainPinElement.style.top = window.variable.mapMainPinElement.offsetTop - shift.y + 'px';
+      window.variable.mapMainPinElement.style.left = window.variable.mapMainPinElement.offsetLeft - shift.x + 'px';
     }
   };
 
@@ -60,8 +60,8 @@
     changeMainPinPosition(moveEvt);
     changeAddressInputValue();
 
-    if (window.variables.mapElement.classList.contains('map--faded')) {
-      window.backend.load(window.constants.Url.GET, onSuccessLoadData, onErrorLoadData);
+    if (window.variable.mapElement.classList.contains('map--faded')) {
+      window.backend.load(window.constant.Url.GET, onSuccessLoadData, onErrorLoadData);
       window.mode.activeMapAndForm();
     }
   };
@@ -73,30 +73,30 @@
   };
 
   var onMainPinEnterPress = function (pressEvt) {
-    if (window.keyboard.isEnterPressed(pressEvt) && window.variables.mapElement.classList.contains('map--faded')) {
-      window.backend.load(window.constants.Url.GET, onSuccessLoadData, onErrorLoadData);
+    if (window.keyboard.isEnterPressed(pressEvt) && window.variable.mapElement.classList.contains('map--faded')) {
+      window.backend.load(window.constant.Url.GET, onSuccessLoadData, onErrorLoadData);
       window.mode.activeMapAndForm();
     }
   };
 
   var onErrorLoadData = function (errorMessage) {
-    window.popupMessages.showError('#error', errorMessage);
+    window.popupMessage.showError('#error', errorMessage);
   };
 
   var onSuccessLoadData = function (ads) {
-    window.variables.usersAds = ads;
-    window.addOffersPins(window.variables.usersAds);
+    window.variable.usersAds = ads;
+    window.addOffersPins(window.variable.usersAds);
     window.mode.activeFilter();
   };
 
 
-  window.variables.mapMainPinElement.addEventListener('mousedown', onMainPinMouseDown);
+  window.variable.mapMainPinElement.addEventListener('mousedown', onMainPinMouseDown);
 
-  window.variables.mapMainPinElement.addEventListener('focus', function () {
+  window.variable.mapMainPinElement.addEventListener('focus', function () {
     document.addEventListener('keydown', onMainPinEnterPress);
   });
 
-  window.variables.mapMainPinElement.addEventListener('blur', function () {
+  window.variable.mapMainPinElement.addEventListener('blur', function () {
     document.removeEventListener('keydown', onMainPinEnterPress);
   });
 })();

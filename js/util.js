@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.utils = {
+  window.util = {
     showElement: function (element) {
       if (element) {
         element.classList.remove('hidden');
@@ -13,7 +13,6 @@
         element.classList.add('hidden');
       }
     },
-
 
     getBlockTopPosition: function (element) {
       return element ? element.getBoundingClientRect().top : '';
@@ -39,7 +38,7 @@
 
     addAttributeToElementsInCollection: function (elements, attrName) {
       elements.forEach(function (it) {
-        window.utils.addAttributeToElement(it, attrName);
+        window.util.addAttributeToElement(it, attrName);
       });
     },
 
@@ -49,15 +48,15 @@
 
     removeAttributeFromElementsInCollection: function (elements, attrName) {
       elements.forEach(function (it) {
-        window.utils.removeAttributeFromElement(it, attrName);
+        window.util.removeAttributeFromElement(it, attrName);
       });
     },
 
     setAddressInputValue: function () {
-      var locationX = Math.round(window.variables.mapMainPinElement.getBoundingClientRect().left + window.variables.pinHalfWidth);
-      var locationY = Math.round(window.variables.mapMainPinElement.getBoundingClientRect().top + pageYOffset + window.variables.pinHalfHeight);
+      var locationX = Math.round(window.variable.mapMainPinElement.getBoundingClientRect().left + window.variable.pinHalfWidth);
+      var locationY = Math.round(window.variable.mapMainPinElement.getBoundingClientRect().top + pageYOffset + window.variable.pinHalfHeight);
 
-      window.variables.addressInputElement.value = locationX + ', ' + locationY;
+      window.variable.addressInputElement.value = locationX + ', ' + locationY;
     },
 
     removeOffersPins: function (element, childrenCount) {
@@ -68,12 +67,12 @@
 
     removeCardModalFromMap: function () {
       var cardModalElement = document.querySelector('.map__card');
-      var cardModalInMap = Array.from(window.variables.mapElement.childNodes).some(function (it) {
+      var cardModalInMap = Array.from(window.variable.mapElement.childNodes).some(function (it) {
         return it === cardModalElement;
       });
 
       if (cardModalInMap) {
-        window.variables.mapElement.removeChild(cardModalElement);
+        window.variable.mapElement.removeChild(cardModalElement);
       }
     }
   };
