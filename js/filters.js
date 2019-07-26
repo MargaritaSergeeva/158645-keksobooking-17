@@ -58,11 +58,9 @@
     if (housingFeaturesCheckedCollectionElements.length > 0) {
       for (var i = 0; i < housingFeaturesCheckedCollectionElements.length; i++) {
         newOfferPins = newOfferPins.filter(function (it) {
-          var sameFeature = it.offer.features.some(function (element) {
+          return it.offer.features.some(function (element) {
             return element === housingFeaturesCheckedCollectionElements[i].value;
           });
-
-          return sameFeature;
         });
       }
     }
