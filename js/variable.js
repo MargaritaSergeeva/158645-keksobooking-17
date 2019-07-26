@@ -23,7 +23,7 @@
     pinsChildrenCount: mapPinsElement.childNodes.length,
     mapFiltersElement: mapFiltersElement,
     mapFiltersSelectsElements: mapFiltersElement.querySelectorAll('.map__filter'),
-    mapFiltersfieldsetElement: mapFiltersElement.querySelector('.map__features'),
+    mapFiltersFieldsetElement: mapFiltersElement.querySelector('.map__features'),
     formElement: formElement,
     formFieldsetsCollectionElements: formElement.querySelectorAll('fieldset'),
     housingTypeSelectElement: housingTypeSelectElement,

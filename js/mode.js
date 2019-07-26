@@ -74,7 +74,7 @@
     });
     window.util.removeAttributeFromElementsInCollection(mapCheckboxsCollectionElements, 'checked');
     window.util.addAttributeToElementsInCollection(window.variable.mapFiltersSelectsElements, 'disabled');
-    window.util.addAttributeToElement(window.variable.mapFiltersfieldsetElement, 'disabled');
+    window.util.addAttributeToElement(window.variable.mapFiltersFieldsetElement, 'disabled');
   };
 
   window.mode = {
@@ -87,7 +87,7 @@
     activeFilter: function () {
       window.variable.mapFiltersElement.classList.remove('map__filters--disabled');
       window.util.removeAttributeFromElementsInCollection(window.variable.mapFiltersSelectsElements, 'disabled');
-      window.util.removeAttributeFromElement(window.variable.mapFiltersfieldsetElement, 'disabled');
+      window.util.removeAttributeFromElement(window.variable.mapFiltersFieldsetElement, 'disabled');
     },
 
     sleep: function () {

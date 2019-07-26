@@ -93,5 +93,5 @@
   });
 
   window.util.addAttributeToElementsInCollection(window.variable.mapFiltersSelectsElements, 'disabled');
-  window.util.addAttributeToElement(window.variable.mapFiltersfieldsetElement, 'disabled');
+  window.util.addAttributeToElement(window.variable.mapFiltersFieldsetElement, 'disabled');
 })();

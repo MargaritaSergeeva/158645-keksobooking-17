@@ -15,7 +15,7 @@
 
   var offersCardTemplateElement = document.querySelector('#card').content.querySelector('.map__card');
   var offersCardElement = offersCardTemplateElement.cloneNode(true);
-  var closureoffersCardElement = offersCardElement.querySelector('.popup__close');
+  var closureOffersCardElement = offersCardElement.querySelector('.popup__close');
   var featuresListElement = offersCardElement.querySelector('.popup__features');
   var photosFragment = document.createDocumentFragment();
   var openedUsersOffer = {};
@@ -141,5 +141,5 @@
   };
 
 
-  closureoffersCardElement.addEventListener('click', onClosureClick);
+  closureOffersCardElement.addEventListener('click', onClosureClick);
 })();
