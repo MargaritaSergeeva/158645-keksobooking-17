@@ -11,14 +11,14 @@
 
   var setMainPinStartCoords = function () {
     startCoords = {
-      x: Math.round(window.utils.getBlockLeftPosition(window.variables.mapMainPinElement) + pageXOffset + window.variables.pinHalfWidth),
-      y: Math.round(window.utils.getBlockTopPosition(window.variables.mapMainPinElement) + pageYOffset + window.variables.pinHalfHeight)
+      x: window.utils.getBlockLeftPosition(window.variables.mapMainPinElement) + pageXOffset + window.variables.pinHalfWidth,
+      y: window.utils.getBlockTopPosition(window.variables.mapMainPinElement) + pageYOffset + window.variables.pinHalfHeight
     };
   };
 
   var changeAddressInputValue = function () {
     var addressCoordX = startCoords.x;
-    var addressCoordY = Math.round(startCoords.y + pinHeightFromCenterToBottom);
+    var addressCoordY = startCoords.y + pinHeightFromCenterToBottom;
 
     window.variables.addressInputElement.value = addressCoordX + ', ' + addressCoordY;
   };
