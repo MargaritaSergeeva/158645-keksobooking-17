@@ -28,7 +28,7 @@
 
       xhr.addEventListener('load', function () {
         if (xhr.status === window.constants.SUCСESS__STATUS) {
-          onLoad(xhr.response);
+          onLoad();
         } else {
           onError();
         }

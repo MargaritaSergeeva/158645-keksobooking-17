@@ -125,6 +125,11 @@
     }
   };
 
+  var onClosureClick = function () {
+    window.variables.mapElement.removeChild(offersCardElement);
+    document.removeEventListener('keydown', onUserOfferModalEscPress);
+  };
+
   window.renderTargetOffersCard = function (arr, pinsIndex) {
     var targetOffersCard = arr.filter(function (it) {
       return arr.indexOf(it) === pinsIndex;
@@ -136,8 +141,5 @@
   };
 
 
-  closureoffersCardElement.addEventListener('click', function () {
-    window.variables.mapElement.removeChild(offersCardElement);
-    document.removeEventListener('keydown', onUserOfferModalEscPress);
-  });
+  closureoffersCardElement.addEventListener('click', onClosureClick);
 })();

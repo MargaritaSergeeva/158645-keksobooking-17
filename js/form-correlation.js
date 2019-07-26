@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var MAX_ROOMS_COUNT = 100;
+
   var minPriceMap = {
     'bungalo': 0,
     'flat': 1000,
@@ -36,7 +38,6 @@
     }
 
     if (element.id === 'room_number') {
-      var MAX_ROOMS_COUNT = 100;
       var notForGuestsOptionElement = correlatedElement.querySelector('option[value="0"]');
 
       window.utils.addAttributeToElementsInCollection(correlatedOptionCollectionElements, 'disabled');

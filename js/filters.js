@@ -13,7 +13,7 @@
   var updateOfferPins = function (arr) {
     var housingFeaturesCheckedCollectionElements = window.variables.mapFiltersElement.querySelectorAll('.map__checkbox:checked');
     var newOfferPins = arr.slice();
-    var priceLimitsMap = {
+    var priceLimitMap = {
       'low': {
         minPrice: 0,
         maxPrice: 10000,
@@ -35,7 +35,7 @@
     }
 
     if (housingPriceElement.querySelector('option:checked').value !== ANY_INPUT_VALUE) {
-      var priceLimits = priceLimitsMap[housingPriceElement.querySelector('option:checked').value];
+      var priceLimits = priceLimitMap[housingPriceElement.querySelector('option:checked').value];
 
       newOfferPins = newOfferPins.filter(function (it) {
         return it.offer.price >= priceLimits.minPrice && it.offer.price <= priceLimits.maxPrice;

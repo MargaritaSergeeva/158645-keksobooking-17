@@ -1,12 +1,17 @@
 'use strict';
 
 (function () {
+  var AVATAR_DEFAULT = 'img/muffin-grey.svg';
+  var FIRST_IMAGE_BLOCK_ID = 'photo-1';
+  var MainPin = {
+    LEFT_POSITION: 570,
+    TOP_POSITION: 375
+  };
+
   var optionCollectionElements;
 
-  var resetFormImages = function () {
-    var AVATAR_DEFAULT = 'img/muffin-grey.svg';
-    var FIRST_IMAGE_BLOCK_ID = 'photo-1';
 
+  var resetFormImages = function () {
     var formImageBlockCollectionElements = window.variables.formElement.querySelectorAll('.ad-form__photo');
     var formImageElement = window.variables.formElement.querySelector('.ad-form__photo-img');
 
@@ -52,11 +57,6 @@
   };
 
   var resetMap = function () {
-    var MainPin = {
-      LEFT_POSITION: 570,
-      TOP_POSITION: 375
-    };
-
     window.variables.mapElement.classList.add('map--faded');
     window.variables.mapMainPinElement.style.top = MainPin.TOP_POSITION + 'px';
     window.variables.mapMainPinElement.style.left = MainPin.LEFT_POSITION + 'px';
@@ -78,12 +78,16 @@
   };
 
   window.mode = {
-    active: function () {
+    activeMapAndForm: function () {
       window.variables.mapElement.classList.remove('map--faded');
-      window.utils.removeAttributeFromElementsInCollection(window.variables.mapFiltersSelectsElements, 'disabled');
-      window.utils.removeAttributeFromElement(window.variables.mapFiltersfieldsetElement, 'disabled');
       window.utils.removeAttributeFromElementsInCollection(window.variables.formFieldsetsCollectionElements, 'disabled');
       window.variables.formElement.classList.remove('ad-form--disabled');
+    },
+
+    activeFilter: function () {
+      window.variables.mapFiltersElement.classList.remove('map__filters--disabled');
+      window.utils.removeAttributeFromElementsInCollection(window.variables.mapFiltersSelectsElements, 'disabled');
+      window.utils.removeAttributeFromElement(window.variables.mapFiltersfieldsetElement, 'disabled');
     },
 
     sleep: function () {

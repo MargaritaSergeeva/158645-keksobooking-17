@@ -6,23 +6,23 @@
 
   var onSuccessSendForm = function () {
     window.popupMessages.showSuccess('#success');
-    window.mode.sleep();
   };
 
   var onErrorSendForm = function () {
     window.popupMessages.showError('#error');
   };
 
-
-  formSubmitButtonElement.addEventListener('click', function (evt) {
+  var onSubmitButtonClick = function (evt) {
     window.validateForm(requiredInputsCollectionElements);
 
     if (window.validateForm(requiredInputsCollectionElements)) {
       evt.preventDefault();
       window.backend.save(window.constants.Url.POST, new FormData(window.variables.formElement), onSuccessSendForm, onErrorSendForm);
     }
-  });
+  };
 
+
+  formSubmitButtonElement.addEventListener('click', onSubmitButtonClick);
   window.variables.formElement.addEventListener('reset', function (evt) {
     evt.preventDefault();
     window.mode.sleep();

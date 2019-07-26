@@ -353,6 +353,10 @@ fieldset {
   opacity: 1;
 }
 
+.map__filters--disabled {
+  opacity: 0.3;
+}
+
 .map--faded .map__filters {
   opacity: 0;
 }

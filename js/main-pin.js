@@ -2,6 +2,8 @@
 
 (function () {
   var PIN_POINTER_HEIGHT = 16;
+  var PIN_MOVE_UP_LIMIT = 130;
+  var PIN_MOVE_DOWN_LIMIT = 630;
 
   var pinHeightFromCenterToBottom = Math.round(window.variables.pinHalfHeight + PIN_POINTER_HEIGHT);
   var startCoords = {};
@@ -22,20 +24,17 @@
   };
 
   var changeMainPinPosition = function (evt) {
-    var PIN_MOVE_UP_LIMIT = 130;
-    var PIN_MOVE_DOWN_LIMIT = 630;
-
-    var pinLimits = {
+    var pinLimit = {
       top: PIN_MOVE_UP_LIMIT - pinHeightFromCenterToBottom,
       bottom: PIN_MOVE_DOWN_LIMIT - pinHeightFromCenterToBottom,
       left: window.utils.getBlockLeftPosition(window.variables.mapElement),
       right: window.utils.getBlockRightPosition(window.variables.mapElement)
     };
 
-    if (evt.pageY >= pinLimits.top &&
-        evt.pageY <= pinLimits.bottom &&
-        evt.pageX >= pinLimits.left &&
-        evt.pageX <= pinLimits.right) {
+    if (evt.pageY >= pinLimit.top &&
+        evt.pageY <= pinLimit.bottom &&
+        evt.pageX >= pinLimit.left &&
+        evt.pageX <= pinLimit.right) {
 
       var shift = {
         x: startCoords.x - evt.pageX,
@@ -49,10 +48,22 @@
     }
   };
 
+  var onMainPinMouseDown = function (downEvt) {
+    downEvt.preventDefault();
+    setMainPinStartCoords();
+    document.addEventListener('mousemove', onMainPinMouseMove);
+    document.addEventListener('mouseup', onMainPinMouseUp);
+  };
+
   var onMainPinMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
     changeMainPinPosition(moveEvt);
     changeAddressInputValue();
+
+    if (window.variables.mapElement.classList.contains('map--faded')) {
+      window.backend.load(window.constants.Url.GET, onSuccessLoadData, onErrorLoadData);
+      window.mode.activeMapAndForm();
+    }
   };
 
   var onMainPinMouseUp = function (upEvt) {
@@ -64,35 +75,22 @@
   var onMainPinEnterPress = function (pressEvt) {
     if (window.keyboard.isEnterPressed(pressEvt) && window.variables.mapElement.classList.contains('map--faded')) {
       window.backend.load(window.constants.Url.GET, onSuccessLoadData, onErrorLoadData);
+      window.mode.activeMapAndForm();
     }
   };
 
   var onErrorLoadData = function (errorMessage) {
     window.popupMessages.showError('#error', errorMessage);
-    document.removeEventListener('mousemove', onMainPinMouseMove);
-    document.removeEventListener('mouseup', onMainPinMouseUp);
   };
 
   var onSuccessLoadData = function (ads) {
     window.variables.usersAds = ads;
     window.addOffersPins(window.variables.usersAds);
-    window.mode.active();
-    document.addEventListener('mousemove', onMainPinMouseMove);
-    document.addEventListener('mouseup', onMainPinMouseUp);
+    window.mode.activeFilter();
   };
 
 
-  window.variables.mapMainPinElement.addEventListener('mousedown', function (evt) {
-    evt.preventDefault();
-    setMainPinStartCoords();
-
-    if (window.variables.mapElement.classList.contains('map--faded')) {
-      window.backend.load(window.constants.Url.GET, onSuccessLoadData, onErrorLoadData);
-    } else {
-      document.addEventListener('mousemove', onMainPinMouseMove);
-      document.addEventListener('mouseup', onMainPinMouseUp);
-    }
-  });
+  window.variables.mapMainPinElement.addEventListener('mousedown', onMainPinMouseDown);
 
   window.variables.mapMainPinElement.addEventListener('focus', function () {
     document.addEventListener('keydown', onMainPinEnterPress);
